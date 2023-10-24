@@ -3,8 +3,8 @@ import os
 
 app = Flask(__name__)
 
-@app.route('/input/<client_id>/A/', methods=['POST'])
-def receive_file(client_id):
+@app.route('/input/<client_id>/<session_id>/', methods=['POST'])
+def receive_file(client_id,session_id):
     print("received")
     file = request.files['file']
     current_path = os.getcwd()
@@ -14,7 +14,7 @@ def receive_file(client_id):
         os.makedirs(directoryID)
         print("New clientID, created")
 
-    finaldir = os.path.join(directoryID, "A")
+    finaldir = os.path.join(directoryID,session_id)
     if not os.path.exists(finaldir):
         os.makedirs(finaldir)
         print("New session, created")
@@ -23,4 +23,4 @@ def receive_file(client_id):
     return "File received!", 200
 
 if __name__ == "__main__":
-    app.run(host='127.0.0.1', port=9999)
+    app.run(host='127.0.0.1', port=9998)
